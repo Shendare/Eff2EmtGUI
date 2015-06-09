@@ -674,7 +674,7 @@ namespace Eff2EmtGUI
                 
                 // Fade in does not appear to be utilized in ZoneNick_sounds.eff, even if one of the Unk fields is supposed to map to it. Make sounds fade in at twice the speed of fading out, 
                 // so a running player doesn't feel like a sound effect finished fading in after they already passed by.
-                _sound1.FadeInMS = _sound1.FadeOutMS / 2;
+                _sound1.FadeInMS = Math.Min(_sound1.FadeOutMS / 2, 5000); // Cap at 5 second FadeIn. Some music entries have a looooong FadeOut.
 
                 _sound1.X = _effEntry.X;
                 _sound1.Y = _effEntry.Y;

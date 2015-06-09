@@ -26,7 +26,7 @@ namespace Eff2EmtGUI
         {
             {  39, "death_me" },
             { 143, "thunder1" },
-            { 144, "thunder2" }, // TODO: Find out what 144 actually is! Used in Qeynos at the same spot as #143, but at night.
+            { 144, "thunder2" },
             { 158, "wind_lp1" },
             { 159, "rainloop" },
             { 160, "torch_lp" },

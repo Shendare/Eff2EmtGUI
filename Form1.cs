@@ -517,32 +517,19 @@ namespace Eff2EmtGUI
             // Step 4 - Read sound file references from ZoneNick_sndbnk.eff (Required unless only background music entries are in ZoneNick_sounds.eff)
             
             StreamReader _bnkFile = null;
-            bool _tryAgain = true;
 
             SoundBank_Emit = new List<string>();
             SoundBank_Loop = new List<string>();
 
             bool _inEmitSection = true;
 
-            while ((_bnkFile == null) && _tryAgain && File.Exists(_zoneSoundBankFilename))
+            try
             {
-                try
-                {
-                    _bnkFile = new StreamReader(_zoneSoundBankFilename);
-                }
-                catch // (Exception ex)
-                {
-                    /*
-                    switch (MessageBox.Show("Could not open Sound Bank File:\n\n" + _zoneSoundBankFilename + "\n\nError Message:\n\n" + ex.Message, "Sound Bank File Read Error", MessageBoxButtons.AbortRetryIgnore, MessageBoxIcon.Error))
-                    {
-                        case System.Windows.Forms.DialogResult.Ignore:
-                            _tryAgain = false;
-                            break;
-                        case System.Windows.Forms.DialogResult.Abort:
-                            return DialogResult.Abort;
-                    }
-                    */
-                }
+                _bnkFile = new StreamReader(_zoneSoundBankFilename);
+            }
+            catch
+            {
+                _bnkFile = null;
             }
 
             if (_bnkFile != null)

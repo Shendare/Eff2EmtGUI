@@ -20,8 +20,6 @@ namespace Eff2EmtGUI
             "C:\\Windows\notepad.exe"
         };
 
-        public string EQFolder = "";
-        
         public Form1()
         {
             InitializeComponent();
@@ -29,7 +27,7 @@ namespace Eff2EmtGUI
 
         private void Form1_Load(object sender, EventArgs e)
         {
-            EQFolder = textEQFolder.Text = Properties.Settings.Default.EQFolder;
+            textEQFolder.Text = Properties.Settings.Default.EQFolder;
         }
 
         private void Form1_FormClosing(object sender, FormClosingEventArgs e)
@@ -49,7 +47,6 @@ namespace Eff2EmtGUI
 
         private void CheckZoneList()
         {
-            EQFolder = textEQFolder.Text;
             listZoneEffs.Items.Clear();
             
             if (Directory.Exists(textEQFolder.Text))

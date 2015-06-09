@@ -36,8 +36,10 @@
             this.buttonConvert = new System.Windows.Forms.Button();
             this.label4 = new System.Windows.Forms.Label();
             this.labelZoneCount = new System.Windows.Forms.Label();
-            this.folderBrowser = new System.Windows.Forms.FolderBrowserDialog();
+            this.dialogEQFolder = new System.Windows.Forms.FolderBrowserDialog();
             this.listZoneEffs = new System.Windows.Forms.ListView();
+            this.progressConversion = new System.Windows.Forms.ProgressBar();
+            this.threadConverter = new System.ComponentModel.BackgroundWorker();
             this.SuspendLayout();
             // 
             // label1
@@ -55,14 +57,14 @@
             | System.Windows.Forms.AnchorStyles.Right)));
             this.textEQFolder.Location = new System.Drawing.Point(11, 27);
             this.textEQFolder.Name = "textEQFolder";
-            this.textEQFolder.Size = new System.Drawing.Size(483, 20);
+            this.textEQFolder.Size = new System.Drawing.Size(487, 20);
             this.textEQFolder.TabIndex = 1;
             this.textEQFolder.TextChanged += new System.EventHandler(this.textEQFolder_TextChanged);
             // 
             // buttonBrowseEQFolder
             // 
             this.buttonBrowseEQFolder.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.buttonBrowseEQFolder.Location = new System.Drawing.Point(494, 26);
+            this.buttonBrowseEQFolder.Location = new System.Drawing.Point(498, 26);
             this.buttonBrowseEQFolder.Name = "buttonBrowseEQFolder";
             this.buttonBrowseEQFolder.Size = new System.Drawing.Size(37, 22);
             this.buttonBrowseEQFolder.TabIndex = 2;
@@ -94,9 +96,9 @@
             this.buttonConvert.Cursor = System.Windows.Forms.Cursors.Hand;
             this.buttonConvert.Enabled = false;
             this.buttonConvert.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.buttonConvert.Location = new System.Drawing.Point(435, 124);
+            this.buttonConvert.Location = new System.Drawing.Point(10, 198);
             this.buttonConvert.Name = "buttonConvert";
-            this.buttonConvert.Size = new System.Drawing.Size(96, 39);
+            this.buttonConvert.Size = new System.Drawing.Size(96, 28);
             this.buttonConvert.TabIndex = 5;
             this.buttonConvert.Text = "Convert!";
             this.buttonConvert.UseVisualStyleBackColor = true;
@@ -125,20 +127,38 @@
             | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
             this.listZoneEffs.CheckBoxes = true;
-            this.listZoneEffs.Location = new System.Drawing.Point(13, 82);
+            this.listZoneEffs.Location = new System.Drawing.Point(11, 82);
             this.listZoneEffs.Name = "listZoneEffs";
-            this.listZoneEffs.Size = new System.Drawing.Size(416, 141);
+            this.listZoneEffs.Size = new System.Drawing.Size(524, 112);
             this.listZoneEffs.TabIndex = 4;
             this.listZoneEffs.UseCompatibleStateImageBehavior = false;
             this.listZoneEffs.View = System.Windows.Forms.View.List;
             this.listZoneEffs.ItemChecked += new System.Windows.Forms.ItemCheckedEventHandler(this.listZoneEffs_ItemChecked);
+            // 
+            // progressConversion
+            // 
+            this.progressConversion.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.progressConversion.Location = new System.Drawing.Point(112, 199);
+            this.progressConversion.Name = "progressConversion";
+            this.progressConversion.Size = new System.Drawing.Size(423, 26);
+            this.progressConversion.TabIndex = 9;
+            // 
+            // threadConverter
+            // 
+            this.threadConverter.WorkerReportsProgress = true;
+            this.threadConverter.WorkerSupportsCancellation = true;
+            this.threadConverter.DoWork += new System.ComponentModel.DoWorkEventHandler(this.threadConverter_DoWork);
+            this.threadConverter.ProgressChanged += new System.ComponentModel.ProgressChangedEventHandler(this.threadConverter_ProgressChanged);
+            this.threadConverter.RunWorkerCompleted += new System.ComponentModel.RunWorkerCompletedEventHandler(this.threadConverter_RunWorkerCompleted);
             // 
             // Form1
             // 
             this.AllowDrop = true;
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(537, 235);
+            this.ClientSize = new System.Drawing.Size(546, 235);
+            this.Controls.Add(this.progressConversion);
             this.Controls.Add(this.listZoneEffs);
             this.Controls.Add(this.labelZoneCount);
             this.Controls.Add(this.label4);
@@ -172,8 +192,10 @@
         private System.Windows.Forms.Button buttonConvert;
         private System.Windows.Forms.Label label4;
         private System.Windows.Forms.Label labelZoneCount;
-        private System.Windows.Forms.FolderBrowserDialog folderBrowser;
+        private System.Windows.Forms.FolderBrowserDialog dialogEQFolder;
         private System.Windows.Forms.ListView listZoneEffs;
+        private System.Windows.Forms.ProgressBar progressConversion;
+        private System.ComponentModel.BackgroundWorker threadConverter;
     }
 }
 
